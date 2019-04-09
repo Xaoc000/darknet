@@ -2,8 +2,8 @@ from ctypes import *
 import math
 import random
 import os
-import cv2
 import numpy as np
+import cv2
 import time
 import darknet
 from iofog_python_sdk.client import IoFogClient, IoFogException
@@ -100,8 +100,9 @@ def YOLO():
                     pass
         except Exception:
             pass
+    print("Successfully loaded Config")
     #cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture("nvcamerasrc ! video/x-raw(memory:NVMM), width=(int)1280, height=(int)720,format=(string)I420, framerate=(fraction)30/1 ! nvvidconv flip-method=2 ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
+    cap = cv2.VideoCapture("rtsp://192.168.1.114:8554/test")
     #cap.set(3, 1280)
     #cap.set(4, 720)
     # out = cv2.VideoWriter(

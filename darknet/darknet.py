@@ -289,6 +289,22 @@ def detect_image(net, meta, im, thresh=.5, hier_thresh=.5, nms=.45, debug= False
     if debug: print("freed detections")
     return res
 
+def sendIOMessage(type, data):
+    try:
+        client = IoFogClient()
+    except IoFogException as e:
+    #client creation failed, e contains description
+        print(e)
+        return -1
+
+    msg = IoMessage()
+    msg.infotype = type
+    msg.infoformat = type
+    msgcontent = data
+
+    msg.contentdata = msgcontent
+
+    client.post_message_via_socket(msg)
 
 netMain = None
 metaMain = None

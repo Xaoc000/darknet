@@ -1,14 +1,14 @@
 FROM xaoc000/darknet4iofog
 
-WORKDIR OpenCV
-
-COPY . /usr/src/app
-
 RUN python3 -c 'import cv2; print(cv2.__version__)'
 
 RUN git clone https://github.com/Xaoc000/darknet.git
 
 RUN pip3 install --upgrade pip
+
+RUN mkdir /usr/local
+
+ADD /usr/local/cuda-9.0 /usr/local/cuda-9.0/
 
 RUN pip3 install iofog-python-sdk ws4py
 
@@ -16,8 +16,4 @@ WORKDIR darknet/darknet
 
 RUN wget https://pjreddie.com/media/files/yolov3.weights
 
-RUN if command -v nvcc ; then export GPU=1; else export GPU=0; fi
-
-RUN GPU=$GPU OPENCV=1 CUDNN=$GPU LIBSO=1 make -j
-
-ENTRYPOINT ["python3", "darknet_video.py"]
+ENTRYPOINT ["bash", "start.sh"]
