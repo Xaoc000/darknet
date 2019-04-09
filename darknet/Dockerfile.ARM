@@ -16,6 +16,8 @@ WORKDIR darknet/darknet
 
 RUN wget https://pjreddie.com/media/files/yolov3.weights
 
-RUN make -j
+RUN if command -v nvcc ; then export GPU=1; else export GPU=0; fi
+
+RUN GPU=$GPU OPENCV=1 CUDNN=$GPU LIBSO=1 make -j
 
 ENTRYPOINT ["python3", "darknet_video.py"]
