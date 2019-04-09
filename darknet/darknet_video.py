@@ -101,11 +101,9 @@ def YOLO():
         except Exception:
             pass
     #cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture("nvcamerasrc ! video/x-raw(memory:NVMM), width=(int)1280, height=(int)720,\
-                             format=(string)I420, framerate=(fraction)30/1 ! nvvidconv flip-method=6 ! video/x-raw, \
-                             format=(string)I420 ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
+    cap = cv2.VideoCapture("nvcamerasrc ! video/x-raw(memory:NVMM), width=(int)1280, height=(int)720,format=(string)I420, framerate=(fraction)30/1 ! nvvidconv flip-method=2 ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink")
     #cap.set(3, 1280)
-    cap.set(4, 720)
+    #cap.set(4, 720)
     # out = cv2.VideoWriter(
     #     "output.avi", cv2.VideoWriter_fourcc(*"MJPG"), 10.0,
     #     (darknet.network_width(netMain), darknet.network_height(netMain)))
@@ -134,6 +132,7 @@ def YOLO():
             # This is sending a list of tuples of tuples, so to access you need to first access the list with
             # detection_locations[0], That will give you another tuple with two entries, each a tuple
             sendIOMessage("location", detection_locations)
+            print(detection_locations)
         # if image:
         #    sendIOMessage("image", image)
         print(1/(time.time()-prev_time))

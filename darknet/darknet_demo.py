@@ -262,7 +262,7 @@ def runOnVideo(net, meta, vid_source, thresh=.8, hier_thresh=.5, nms=.45):
 
 
 if __name__ == "__main__":
-    net = load_net("yolov2-tiny.cfg", "yolov2-tiny.weights", 0)
+    net = load_net("yolov3.cfg", "yolov3.weights", 0)
     meta = load_meta("voc.data")
-    vid_source = 0
+    vid_source = "nvcamerasrc ! video/x-raw(memory:NVMM), width=(int)1280, height=(int)720,format=(string)I420, framerate=(fraction)30/1 ! nvvidconv flip-method=2 ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink"
     runOnVideo(net, meta, vid_source)
